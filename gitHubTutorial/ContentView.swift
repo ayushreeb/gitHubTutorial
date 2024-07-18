@@ -13,6 +13,8 @@ struct ContentView: View {
     @State private var TextTitle = "What is your name?"
     @State private var name = ""
     @State private var showAlert = false
+    @State private var showNav = false
+    
     
     var body: some View {
         
@@ -31,13 +33,7 @@ struct ContentView: View {
             
             NavigationStack {
                 VStack{
-                    NavigationLink(destination: nextPage()) {
-                        Text("➡️")
-                        
-                            .navigationTitle("Home")
-                            .navigationBarTitleDisplayMode(.inline)
-                            .navigationBarHidden(true)
-                    }
+                    
                     Text(TextTitle)
                         .font(.system(size: 30, weight: .black, design: .serif))
                         .font(.title)
@@ -52,14 +48,27 @@ struct ContentView: View {
                     Button("Submit Name")
                     {
                         TextTitle = "Welcome, \(name)!✨"
+                        showNav = true
                     }
                     .font(.title2)
                     .buttonStyle(.borderedProminent)
                     .tint(Color.pink)
                 }
-                .padding()
+                
+                if showNav{
+                    NavigationLink(destination: nextPage()) {
+                        Text("➡️")
+                            .navigationBarTitleDisplayMode(.inline)
+                            .navigationBarHidden(showNav)
+                    }
+                    
+                    .padding()
+                }
             }
+            
         }
-        
     }
 }
+    #Preview {
+        ContentView()
+    }
